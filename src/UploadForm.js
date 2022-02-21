@@ -2,8 +2,8 @@ import React from 'react'
 import { useMutation, gql } from '@apollo/client'
 
 const GET_QUERY = gql`
-    mutation ($file: [Upload!]!) {
-        uploadFiles(file: $file)
+    mutation ($file: [UserGraphQLUpload!]) {
+        testtest(file: $file)
     }
 `
 
@@ -13,10 +13,23 @@ export default function UploadForm(){
     }) 
 
     const handleFileChange = (e) => {
+        let text = '' 
         //console.log(e.target.files)
         const file = e.target.files
+        const obj = []
+        if(file.length > 0) {
+            for(let i=0;i<file.length;i++ ){
+                obj.push({
+                    doctype: 'AAAAA',
+                    file: file[i]
+                })
+            }
+            //console.log(obj)
+        }
         if(!file) return
-        uploadFile({ variables: {file }})
+        uploadFile({ variables: {
+            file: obj
+        }})
 
     }
     return (
